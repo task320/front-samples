@@ -1,0 +1,87 @@
+<html>
+    <head>
+        <style>
+            .fake-text{
+                cursor: text;
+                width:640px;
+                border:1px solid lightgray;
+                border-radius: 2px;
+                padding:4px;
+            }
+            .tag-list{
+                list-style-type: none;
+                display: inline;
+                padding:4px;
+                
+            }
+            .tag-input{
+                margin: 4px;
+            }
+            .tag-item{
+                display: inline-block;
+                background-color: black;
+                padding-top: 4px;
+                padding-left: 8px;
+                padding-right: 2px;
+                padding-bottom: 2px;
+                border-radius: 16px;
+                color:white;
+            }
+            .tag-remove{
+                margin:2px;
+                border-color:transparent;
+                background-color:transparent;
+                color:white;
+            }
+        </style>
+        <script>
+            function tagInputKeydwon(event){
+                if (event.key === 'Enter') {
+                    appendTag(event);
+                }
+            }
+            function appendTag(event){
+                let element = document.getElementById("tag-list");
+                let tagElement = createTagElement(event.target.value);
+                element.appendChild(tagElement)
+
+            }
+            function createTagElement(tagName){
+                let tagElement = document.createElement('il');
+                tagElement.classList.add("tag-item");
+                tagElement.innerText = tagName;
+
+                let tagXButton = document.createElement('button');
+                tagXButton.type = "button";
+                tagXButton.classList.add("tag-remove");
+                tagXButton.addEventListener("click",() => removeTag(tagXButton));
+                tagXButton.innerText = "X";
+
+                tagElement.appendChild(tagXButton);
+
+                return tagElement;
+
+            }
+            function removeTag(el){
+                element = el.closest(".tag-item");
+                element.remove();
+            }
+            function forcusInput(){
+                let element = document.getElementById("tag-input");
+                element.focus();
+            }
+        </script>
+
+    </head>
+    <body>
+        <div>
+            <div class="fake-text" onclick="forcusInput();">
+                <ul class="tag-list" id="tag-list">
+                    <li class="tag-item">test<button type="button" class="tag-remove" onclick="removeTag(this)">X</li>
+                    <li class="tag-item">阿鼻叫喚<button type="button" class="tag-remove" onclick="removeTag(this)">X</li>
+                </ul>
+                <input id="tag-input" class ="tag-input" type="text" onkeydown="tagInputKeydwon(event);"/>
+            </div>
+        </div>
+    </body>
+</html>
